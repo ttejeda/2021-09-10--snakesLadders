@@ -5,9 +5,8 @@ class Player{
         this.position = 0;
     }
 
-    throwDice(){
-        let a = Math.ceil(Math.random() * 6);
-        this.position += a;
+    throwDice(dice){
+        return dice.throw();
     }
 
     getName(){
@@ -16,6 +15,18 @@ class Player{
 
     getPosition(){
         return this.position;
+    }
+}
+
+class Dice{
+
+    constructor(faces){
+        this.faces = faces;
+    }
+
+    throw(){
+        let face = Math.ceil(Math.random() * this.faces);
+        return face;
     }
 }
 
@@ -67,4 +78,5 @@ class Board{
 
 let carlos = new Player("Carlos");
 let juan = new Player("Juan");
+let dice = new Dice(6);
 let SL = new Board();
