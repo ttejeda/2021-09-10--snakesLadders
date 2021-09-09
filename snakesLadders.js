@@ -19,16 +19,52 @@ class Player{
     }
 }
 
-let board = new Array;
-for(let i = 0; i <= 100; i++){
-    board.push(i);
-}
-let snakes = [1, 17, 20, 39, 5, 31, 15, 48, 52];
-let ladders = [8, 22, 48, 95, 65, 76, 100, 82, 94];
-for(let i = 0; i <= 8; i++){
-    board[11 * (i + 1)] = snakes[i];
-    board[11 * (i) + 2] = ladders[i];
+class Board{
+
+    constructor(){
+        this._board = this._generator();
+    }
+
+    _board(){
+        let board = new Array;
+        for(let i = 0; i <= 100; i++){
+            board.push(0);
+        }
+
+        return board;
+    }
+
+    _snakes(board){
+        for(let i = 1; i <= 9; i++){
+            let a = Math.ceil(Math.random() * 15);
+            board[11 * i] = -a;
+        }
+
+        return board;
+    }
+
+    _ladders(board){
+        for(let i = 0; i < 9; i++){
+            let b = Math.ceil(Math.random() * 15);
+            board[11 * i + 2] = b;
+        }
+
+        return board;
+    }
+
+    _generator(){
+        let board = this._board();
+        this._snakes(board);
+        this._ladders(board);
+
+        return board;
+    }
+
+    getBoard(){
+        return this._board;
+    }
 }
 
 let carlos = new Player("Carlos");
 let juan = new Player("Juan");
+let SL = new Board();
