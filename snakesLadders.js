@@ -6,7 +6,7 @@ class Player{
     }
 
     throwDice(dice){
-        return dice.throw();
+        this.position += dice.throw();
     }
 
     getName(){
@@ -15,6 +15,14 @@ class Player{
 
     getPosition(){
         return this.position;
+    }
+
+    advance(number){
+        if(number == undefined){
+            this.position = 100;
+        } else {
+            this.position += number;
+        }
     }
 }
 
@@ -74,9 +82,29 @@ class Board{
     getBoard(){
         return this._board;
     }
+    
+    showSquare(position){
+        return this._board[position];
+    }
 }
 
 let carlos = new Player("Carlos");
 let juan = new Player("Juan");
 let dice = new Dice(6);
 let SL = new Board();
+
+while(carlos.getPosition() < 100 && juan.getPosition() < 100){
+    carlos.throwDice(dice);
+    let a = SL.showSquare(carlos.getPosition());
+    carlos.advance(a);
+
+    juan.throwDice(dice);
+    a = SL.showSquare(juan.getPosition());
+    juan.advance(a);
+}
+
+if(carlos.getPosition() >= 100){
+    console.log("¡Carlos es el ganador!");
+} else {
+    console.log("¡Juan es el ganador!");
+}
